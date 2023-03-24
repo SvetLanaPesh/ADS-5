@@ -2,18 +2,18 @@
 #include <string>
 #include <map>
 #include "tstack.h"
-int Priority(char sym) {
+int Pr(char sym) {
     if (sym == '(')
         return 0;
     else if (sym == ')')
         return 1;
     else if (sym == '+' || sym == '-')
         return 2;
-    else if (sym == '*' || sym == '/')
+    else
         return 3;
 }
 bool Operand(char sym) {
-    if (sym != '(' && sym != ')' && sym != '+' && sym != '-' && sym != '/' && sym != '*')
+    if (sym >= '0' && sym <= '9')
         return true;
     return false;
 }
@@ -24,17 +24,17 @@ std::string infx2pstfx(std::string inf) {
         if (Operand(sym)) {
             pstf.push_back(sym);
             pstf.push_back(' ');
-        } else if (Priority(sym) == 0) {
+        } else if (Pr(sym) == 0) {
             stack.push(sym);
-        } else if (Priority(sym) == 1) {
-            while (Priority(stack.get()) != 0) {
+        } else if (Pr(sym) == 1) {
+            while (Pr(stack.get()) != 0) {
                 pstf.push_back(stack.get());
                 pstf.push_back(' ');
                 stack.pop();
             }
             stack.pop();
         } else {
-            while (!stack.isEmpty() && (Priority(sym) <= Priority(stack.get()))) {
+            while (!stack.isEmpty() && (Pr(sym) <= Pr(stack.get()))) {
                 pstf.push_back(stack.get());
                 pstf.push_back(' ');
                 stack.pop();
