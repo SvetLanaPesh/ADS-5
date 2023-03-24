@@ -5,10 +5,10 @@ const int size = 100;
 template<typename T, int size>
 class TStack {
  private:
-    T arr[size];
+    T* arr;
     int top;
  public:
-    TStack() :top(-1) { }
+    TStack() :top(-1) { arr = new T[size] }
     T get() const {
         return arr[top];
     }
