@@ -8,7 +8,7 @@ class TStack {
     T* arr;
     int top;
  public:
-    TStack() :top(-1) { arr = new T[size] }
+    TStack() :top(-1) { arr = new T[size]; }
     T get() const {
         return arr[top];
     }
